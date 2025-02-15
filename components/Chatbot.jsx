@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   Menu,
   X,
@@ -42,38 +42,40 @@ export function Chatbot() {
     const apiKey = "AIzaSyACpDwXspWMdrsqHdM19akpMsg5g0Wkl3A";
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
   
-    // List of keywords related to police management & law
+    // Allowed keywords for nutrition advice
     const allowedKeywords = [
-      "police", "law", "IPC", "penal code", "crime", "evidence", "arrest", "case",
-      "court", "FIR", "witness", "justice", "investigation", "forensic", "trial"
+      "nutrition", "diet", "protein", "carbs", "fats", "vitamins", "minerals", "calories", "meal", "plan", "healthy", "food"
     ];
   
-    // Check if the question is related to allowed topics
+    // Check if the question is related to nutrition topics
     const isRelated = allowedKeywords.some(keyword =>
       question.toLowerCase().includes(keyword)
     );
   
     if (!isRelated) {
-      return "This AI can only answer questions related to police management, Indian Penal Code, and law.";
+      return "I can only provide nutrition advice. Please ask me something about nutrition.";
     }
   
-    // Check if the question relates to any menu category
-    const matchedMenu = Menus.find(menu =>
-      question.toLowerCase().includes(menu.name.toLowerCase())
-    );
+    // Predefined nutrition assistant prompt
+    const nutritionAssistantPrompt = `
+  You are a nutrition assistant, and you should only provide advice on nutrition topics such as:
+  1. Basics of a balanced diet.
+  2. Macronutrients (carbs, proteins, fats) and their benefits.
+  3. Micronutrients (vitamins, minerals) and their importance.
+  4. Healthy meal planning and food choices.
+  5. Dietary recommendations for different fitness goals (weight loss, muscle gain, maintenance).
+  6. Output should be less than 50 words.
+  If the user asks anything beyond these topics, do not help.
+  Question: ${question}
+    `;
   
-    if (matchedMenu) {
-      router.push(matchedMenu.href);
-      return `This query relates to ${matchedMenu.name}. Redirecting to ${matchedMenu.href}...`;
-    }
-  
-    // Format the request body
+    // Format the request body for the Gemini API
     const requestBody = {
       contents: [
         {
           parts: [
             {
-              text: `Please answer the following question as a person knowing all about Police management and Indian Penal Code, and some more details related to law: ${question}. Please try to answer under 50 words and in response just give the answer.`,
+              text: nutritionAssistantPrompt,
             },
           ],
         },
@@ -92,39 +94,31 @@ export function Chatbot() {
       const data = await response.json();
       const answer = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
   
-      return answer || "I couldn't find an answer. Please try rephrasing your question.";
+      // Helper to ensure the answer contains nutrition-related keywords
+      const checkNutritionResponse = (responseText) => {
+        const nutritionKeywords = [
+          "nutrition", "diet", "protein", "carbs", "fats", "vitamins", "minerals", "calories", "meal plan", "healthy food"
+        ];
+        return nutritionKeywords.some(keyword => responseText.toLowerCase().includes(keyword));
+      };
+  
+      if (!answer || !checkNutritionResponse(answer)) {
+        return "I can only provide nutrition advice. Please ask me something about nutrition.";
+      }
+  
+      return answer;
     } catch (error) {
       console.error("Error calling Gemini API:", error);
       return "An error occurred while fetching the response.";
     }
   }
 
-  // async function gemResp(question) {
-  //   const apiKey = "AIzaSyACpDwXspWMdrsqHdM19akpMsg5g0Wkl3A"; 
-  //   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-  
-  //   const requestBody = {
-  //     contents: [{ parts: [{ text: `Please answer the following question as a person knowing all about Police management and indian penal code and some more details related to law :- ${question} ,,, please try to answer under 50 words and in response just give answer` }] }],
-  //   };
-  
-  //   try {
-  //     const response = await fetch(endpoint, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(requestBody),
-  //     });
-  
-  //     const data = await response.json();
-  //     const answer = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-  
-  //     return answer
-  //   } catch (error) {
-  //     console.error("Error calling Gemini API:", error);
-  //     return false; // Assume not educational if API fails
-  //   }
-  // }
+  const messagesEndRef = useRef(null);
+
+  // Auto-scroll to bottom whenever messages update
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() !== "") {
@@ -191,6 +185,7 @@ export function Chatbot() {
                 </span>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
           <div className="border-t p-4">
             <div className="flex items-center">
