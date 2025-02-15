@@ -1,21 +1,15 @@
 import express, { Router } from "express";
 import { updateUser, checkUser } from "../controller/userController.js";
+import { createBlog, deleteBlog } from "../controller/blogController.js";
 
 const router = Router();
 
+// User Routes
 router.put('/updateUser/:userId', updateUser);
 router.post('/checkUser', checkUser);
 
-// router
-//     .route('/add-professional-details')
-//     .post(verifyJWT,
-//         upload.fields([
-//             { name: 'dobProof', maxCount: 1 },
-//             { name: 'addressProof', maxCount: 1 },
-//             { name: 'qualificationProof', maxCount: 1 },
-//             { name: 'certifications', maxCount: 10 }, // Multiple certifications
-//         ]),
-//         addProfessionalDetails
-// );
+// Blog Routes
+router.post('/createBlog', createBlog);
+router.delete('/deleteBlog/:blogId', deleteBlog);
 
-export default router
+export default router;

@@ -1,7 +1,6 @@
 import UserModel from "../models/User/UserModel.js";
 import mongoose from "mongoose";
 
-
 const updateUser = async (req, res, next) => {
     try {
         const { userId } = req.params;
@@ -13,34 +12,38 @@ const updateUser = async (req, res, next) => {
 
         if (updateFields.sleeping) {
             updateFields.sleeping = {
-                time: updateFields.sleeping.time,
-                schedule: updateFields.sleeping.schedule,
-                feedback: updateFields.sleeping.feedback
+                time: updateFields.sleeping.time || null,
+                schedule: updateFields.sleeping.schedule || null,
+                feedback: updateFields.sleeping.feedback || null
             };
         }
 
         if (updateFields.food_intake) {
             updateFields.food_intake = updateFields.food_intake.map(meal => ({
-                time: meal.time,
-                type: meal.type,
-                meal_name: meal.meal_name,
-                cal: meal.cal,
-                taste: meal.taste
+                time: meal.time || null,
+                type: meal.type || null,
+                meal_name: meal.meal_name || null,
+                cal: meal.cal || null,
+                taste: meal.taste || null
             }));
         }
 
         if (updateFields.exercise_done) {
             updateFields.exercise_done = updateFields.exercise_done.map(exercise => ({
-                time: exercise.time,
-                type: exercise.type,
-                exercise_name: exercise.exercise_name,
-                cal_burnt: exercise.cal_burnt,
-                feeling_after_exercise: exercise.feeling_after_exercise
+                time: exercise.time || null,
+                type: exercise.type || null,
+                exercise_name: exercise.exercise_name || null,
+                cal_burnt: exercise.cal_burnt || null,
+                feeling_after_exercise: exercise.feeling_after_exercise || null
             }));
         }
 
+        if (updateFields.dietary_preferences && !["Non-Veg", "Veg", "Jain"].includes(updateFields.dietary_preferences)) {
+            return res.status(400).json({ message: "Invalid dietary preference. Choose from Non-Veg, Veg, or Jain." });
+        }
+
         const updatedUser = await UserModel.findByIdAndUpdate(
-            new mongoose.Types.ObjectId(userId),  // ✅ Convert userId to ObjectId
+            userId,
             updateFields,
             { new: true, runValidators: true }
         );
@@ -67,13 +70,14 @@ const checkUser = async (req, res, next) => {
                 name: null,
                 email: email,
                 profilePic: null,
-                age: null, // Default age
+                age: null,
                 gender: null,
-                height: null, // Default height in cm
-                weight: null, // Default weight in kg
+                height: null,
+                weight: null,
                 activityLevel: null,
                 target: null,
                 mealsPerDay: null,
+                dietary_preferences: "Veg",  // Default value
                 allergies: null,
                 sleeping: { time: null, schedule: null, feedback: null },
                 food_intake: [],
@@ -88,7 +92,5 @@ const checkUser = async (req, res, next) => {
         next(error);
     }
 };
-
-
 
 export { updateUser, checkUser };
