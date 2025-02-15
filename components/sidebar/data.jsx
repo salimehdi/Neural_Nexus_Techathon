@@ -1,10 +1,17 @@
-import { CookingPot, HandPlatter, Home, LocateIcon, MessageCircle, PhoneCall, PieChartIcon, SearchCheck, SettingsIcon, User, Video } from "lucide-react";
+import { CookingPot, HandPlatter, Home, LocateIcon, MessageCircle, PhoneCall, PieChartIcon, SearchCheck, SettingsIcon, User, Video, Clapperboard, Clipboard, ClipboardMinus, Dumbbell, GitGraph, HandPlatter, History, Home, LocateIcon, MessageCircle, Phone, PhoneCall, PieChartIcon, ReceiptIcon, ReceiptPoundSterlingIcon, SearchCheck, SettingsIcon, User, UserIcon, Users, Video, WorkflowIcon  } from "lucide-react";
 
+  
+  export const Menus = [
+    { name: "Home", href: "/", logo: UserIcon },
+    { name: "Meal Plan", href: "/meals", logo: HandPlatter },
+    { name: "Recipe", href: "/recipe", logo: CookingPot },
+    { name: "Workout Plans", href: "/workout", logo: Dumbbell },
+  { name: "Health Insights", href: "/health-insights", logo: ClipboardMinus },
+  { name: "History", href: "/history", logo: History },
+  { name: "Blogs", href: "/blogs", logo: Users },
+  { name: "Consultation", href: "/chat", logo: Phone },
 
-export const Menus = [
-  { name: "Chat", href: "/chat", logo: MessageCircle },
-  { name: "Meals", href: "/meals", logo: HandPlatter },
-  { name: "Recipe", href: "/recipe", logo: CookingPot },
+  
 ];
 
 

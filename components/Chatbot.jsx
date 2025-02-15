@@ -320,6 +320,7 @@ export function Chatbot() {
             </button>
           </div>
           <div className="h-96 overflow-y-auto p-4 space-y-4">
+<<<<<<< HEAD
           {messages.map((message) => (
   <div
     key={message.id}
@@ -345,6 +346,29 @@ export function Chatbot() {
   </div>
 ))}
 
+=======
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={`flex flex-col ${
+                  message.sender === "User" ? "items-end" : "items-start"
+                }`}
+              >
+                <div
+                  className={`max-w-[70%] rounded-lg p-3 ${
+                    message.sender === "User"
+                      ? "bg-blue-100 text-blue-800"
+                      : "bg-gray-100 text-gray-800"
+                  }`}
+                >
+                  <p className="text-sm">{message.text}</p>
+                </div>
+                <span className="text-xs text-gray-500 mt-1">
+                  {message.sender} • {message.timestamp.toLocaleTimeString()}
+                </span>
+              </div>
+            ))}
+>>>>>>> 4f515aadb7e4f11004013b5f342722d843507bee
             <div ref={messagesEndRef} />
           </div>
           <div className="border-t p-4">

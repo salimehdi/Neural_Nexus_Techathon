@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Star, User, Calendar, Utensils, Moon } from "lucide-react"
 import { useRouter } from "next/navigation"
 import DailyActivityChart from "./components/charts/DailyActivityChart"
+import Form from "@/components/Form"
 
 const Page = () => {
   const router = useRouter()
@@ -174,6 +175,15 @@ const Page = () => {
             </Card>
           </div>
         </div>
+
+        
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 top-0 right-0">
+        <div className=" p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] lg:w-[40%]">
+          <Form />
+        </div>
+      </div>
+
+
         <div className="mt-12">
           <Card className="p-6 bg-card">
             <CardHeader>
@@ -192,4 +202,3 @@ const Page = () => {
 }
 
 export default Page
-

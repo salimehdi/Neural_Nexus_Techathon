@@ -3,6 +3,9 @@ import { AlignLeft, Search, User } from "lucide-react";
 import React from "react";
 import { ModeToggle } from "./ModeToggle";
 import { ThemeToggle } from "./ThemeToggle";
+import Notification from "./Notification";
+
+
 import useSliderToggler from "@/store/slider-toggle";
 import { SignedIn, SignedOut, SignIn, SignInButton, UserButton } from "@clerk/nextjs";
 import { LanguageToggler } from "./LanguageToggler";
@@ -40,6 +43,7 @@ const NavBar = () => {
           </span>
         </div>
         <div className="flex items-center gap-x-1">
+          <Notification />
           <ThemeToggle />
           <ModeToggle />
           <SignedIn>
@@ -51,6 +55,7 @@ const NavBar = () => {
             </SignInButton>
           </SignedOut>
         </div>
+   
       </nav>
     </>
   );
