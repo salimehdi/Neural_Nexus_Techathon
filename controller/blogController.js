@@ -1,9 +1,8 @@
 import BlogModel from "../models/User/BlogModel.js";
 
-/**
- * @desc Create a new blog post
- * @route POST /api/blog/create
- */
+
+
+
 const createBlog = async (req, res, next) => {
     try {
         const { text, name, tags } = req.body;
@@ -26,10 +25,9 @@ const createBlog = async (req, res, next) => {
     }
 };
 
-/**
- * @desc Delete a blog post
- * @route DELETE /api/blog/delete/:blogId
- */
+
+
+
 const deleteBlog = async (req, res, next) => {
     try {
         const { blogId } = req.params;
@@ -47,4 +45,18 @@ const deleteBlog = async (req, res, next) => {
     }
 };
 
-export { createBlog, deleteBlog };
+
+
+
+const getAllBlogs = async (req, res, next) => {
+    try {
+        const blogs = await BlogModel.find().sort({ timestamp: -1 }); // Sort by latest blogs
+        res.status(200).json(blogs);
+    } catch (error) {
+        next(error);
+    }
+};
+
+
+
+export { createBlog, deleteBlog, getAllBlogs };

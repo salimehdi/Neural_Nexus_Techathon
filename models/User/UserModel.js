@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
         type: { type: String},
         meal_name: { type: String},
         cal: { type: Number },
-        taste: { type: Number, enum: [0, 5, 10] }
+        taste: { type: Number, enum: [0,1,2,3,4,5,6,7,8,9,10] }
     }],
     exercise_done: [{
         time: { type: String},
