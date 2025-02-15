@@ -1,8 +1,9 @@
-import { Home, LocateIcon, MessageCircle, PhoneCall, PieChartIcon, SearchCheck, SettingsIcon, User, Video } from "lucide-react";
+import { HandPlatter, Home, LocateIcon, MessageCircle, PhoneCall, PieChartIcon, SearchCheck, SettingsIcon, User, Video } from "lucide-react";
 
 
 export const Menus = [
-  // { name: "Chat", href: "/chat", logo: MessageCircle },
+  { name: "Chat", href: "/chat", logo: MessageCircle },
+  { name: "Meals", href: "/meals", logo: HandPlatter },
 ];
 
 

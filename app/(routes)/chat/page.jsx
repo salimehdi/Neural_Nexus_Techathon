@@ -87,13 +87,16 @@ const tokens = [
     "007eJxTYJAqmflXNqT5Y3lE8+LCKv/61mq1mpSnTmLHpJ/HBnHdZ1NgsEgxT041NzdMNjY2N7E0S0pMNkk1M0y2sDAzSEtNNDa62b4+vSGQkWFClCUjIwMEgvj8DMWpyfl5KWGZKan5zok5OQwMAGwKIq4=",
     "secondVideoCall",
   ],
-  
+  [
+    "007eJxTYLiyv/he3crUXSceKtmsP3KqkPFwy4Fqoa/z3z5jDXFSYS1QYLBIMU9ONTc3TDY2NjexNEtKTDZJNTNMtrAwM0hLTTQ2+ue7Ib0hkJHh7cxuJkYGCATx+RhKMooyU8IyU1LznRNzchgYAHGpJdY=",
+    "thridVideoCall",
+  ],
 ]
 
 
 const getRandomToken = () => {
   const randomIndex = Math.floor(Math.random() * tokens.length)
-  return tokens[randomIndex]
+  return tokens[0]
 }
 
 const VideoRoom1 = () => {
