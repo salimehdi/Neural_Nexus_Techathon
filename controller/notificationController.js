@@ -2,15 +2,21 @@ import UserModel from "../models/User/UserModel.js";
 import mongoose from "mongoose";
 
 // ✅ Update Exercise
+import NotificationModel from "../models/User/NotificationModel.js"; // Import Notification Model
+import HistoryModel from "../models/User/HistoryModel.js";
+
+
 const updateExercise = async (req, res, next) => {
     try {
         const { userId } = req.params;
         const { cal_burnt, feeling_after_exercise, time, type, exercise_name } = req.body;
 
+        // Validate User ID
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid User ID" });
         }
 
+        // Push new exercise entry into `exercise_done` array
         const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
             { 
@@ -25,7 +31,26 @@ const updateExercise = async (req, res, next) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        res.status(200).json({ message: "Exercise updated successfully", updatedUser });
+        // ✅ Create a notification for the user
+        const notificationText = `🎉 Congratulations! You have successfully completed ${exercise_name}. You were feeling ${feeling_after_exercise}.`;
+
+        await NotificationModel.create({
+            userId,
+            exercise_name
+        });
+
+        // ✅ Push entry to HistoryModel
+        await HistoryModel.create({
+            userId,
+            text: `🏋️ Exercise Completed: ${exercise_name}`
+        });
+
+        res.status(200).json({ 
+            message: "Exercise updated successfully", 
+            notification: notificationText, 
+            updatedUser 
+        });
+
     } catch (error) {
         next(error);
     }
@@ -71,5 +96,39 @@ const updateFood = async (req, res, next) => {
         next(error);
     }
 };
+
+
+// ✅ Get all notifications
+const getAllNotification = async (req, res, next) => {
+    try {
+        const notifications = await NotificationModel.find().sort({ createdAt: -1 });
+
+        if (!notifications.length) {
+            return res.status(404).json({ message: "No notifications found." });
+        }
+
+        res.status(200).json({ notifications });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// ✅ Get all history records
+const getAllHistory = async (req, res, next) => {
+    try {
+        const historyRecords = await HistoryModel.find().sort({ createdAt: -1 });
+
+        if (!historyRecords.length) {
+            return res.status(404).json({ message: "No history records found." });
+        }
+
+        res.status(200).json({ history: historyRecords });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { getAllNotification, getAllHistory };
+
 
 export { updateExercise, updateFood };

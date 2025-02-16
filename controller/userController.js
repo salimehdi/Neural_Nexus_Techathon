@@ -62,11 +62,12 @@ const checkUser = async (req, res, next) => {
     try {
         const { email } = req.body;
 
+        // Find user by email
         let user = await UserModel.findOne({ email });
 
+        // If user doesn't exist, create a new one with default values
         if (!user) {
-            // Create a new user with default values
-            user = new UserModel({
+            user = await UserModel.create({
                 name: null,
                 email: email,
                 profilePic: null,
@@ -77,14 +78,12 @@ const checkUser = async (req, res, next) => {
                 activityLevel: null,
                 target: null,
                 mealsPerDay: null,
-                dietary_preferences: "Veg",  // Default value
+                dietary_preferences: "Veg", // Default value
                 allergies: null,
                 sleeping: { time: null, schedule: null, feedback: null },
                 food_intake: [],
                 exercise_done: []
             });
-
-            await user.save();
         }
 
         res.status(200).json(user);
@@ -92,5 +91,27 @@ const checkUser = async (req, res, next) => {
         next(error);
     }
 };
+
+
+
+const getUserByEmail = async (req, res, next) => {
+    try {
+        const { email } = req.params;
+
+        // Find user by email
+        const user = await UserModel.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export { getUserByEmail };
+
 
 export { updateUser, checkUser };
