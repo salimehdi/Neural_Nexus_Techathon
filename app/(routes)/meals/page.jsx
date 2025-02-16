@@ -45,29 +45,14 @@ const Page = () => {
       <h1 className="text-xl font-bold">Personalized Diet Plan</h1>
 
       <input
-        type="number"
-        name="age"
-        placeholder="Age"
+        type="text"
+        name="Meal Plan"
+        placeholder="Enter about your meals"
         value={userHealth.age}
         onChange={handleChange}
         className="border p-2 m-2"
       />
-      <input
-        type="number"
-        name="weight"
-        placeholder="Weight (kg)"
-        value={userHealth.weight}
-        onChange={handleChange}
-        className="border p-2 m-2"
-      />
-      <input
-        type="text"
-        name="dietaryRestrictions"
-        placeholder="Dietary Restrictions"
-        value={userHealth.dietaryRestrictions}
-        onChange={handleChange}
-        className="border p-2 m-2"
-      />
+      
 
       <button
         onClick={fetchGroqResponse}

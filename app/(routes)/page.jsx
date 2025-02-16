@@ -177,11 +177,11 @@ const Page = () => {
         </div>
 
         
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 top-0 right-0">
+      {/* <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 top-0 right-0">
         <div className=" p-6 rounded-lg shadow-lg w-[90%] md:w-[50%] lg:w-[40%]">
           <Form />
         </div>
-      </div>
+      </div> */}
 
 
         <div className="mt-12">
