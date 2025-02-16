@@ -6,6 +6,7 @@ const Form = () => {
     age: '',
     height: '',
     weight: '',
+    BMI:'',
     dietaryPreferences: '',
     fitnessGoal: ''
   });
@@ -26,12 +27,12 @@ const Form = () => {
 
   if (!showForm) return null;
 
-  
+
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg dark:bg-gray-900">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Complete Your Profile</h2>
+        <h2 className="text-2xl font-bold dark:text-white dark:bg-gray-900">Complete Your Profile</h2>
         <button
           onClick={() => setShowForm(false)}
           className="text-gray-500 hover:text-gray-700"
@@ -46,7 +47,7 @@ const Form = () => {
           value={formData.age}
           onChange={handleChange}
           placeholder="Age"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           required
         />
         <input
@@ -55,7 +56,7 @@ const Form = () => {
           value={formData.height}
           onChange={handleChange}
           placeholder="Height (cm)"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           required
         />
         <input
@@ -64,7 +65,16 @@ const Form = () => {
           value={formData.weight}
           onChange={handleChange}
           placeholder="Weight (kg)"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          required
+        />
+        <input
+          type="number"
+          name="BMI"
+          value={formData.BMI}
+          onChange={handleChange}
+          placeholder="BMI"
+          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           required
         />
         <input
@@ -73,7 +83,7 @@ const Form = () => {
           value={formData.dietaryPreferences}
           onChange={handleChange}
           placeholder="Dietary Preferences (e.g., Vegan, Keto)"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           required
         />
         <input
@@ -82,7 +92,7 @@ const Form = () => {
           value={formData.fitnessGoal}
           onChange={handleChange}
           placeholder="Fitness Goal (e.g., Weight Loss, Muscle Gain)"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           required
         />
         <div className="flex gap-4">
