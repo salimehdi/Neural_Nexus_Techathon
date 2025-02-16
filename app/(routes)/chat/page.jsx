@@ -80,16 +80,8 @@ const createAgoraClient = ({ onVideoTrack, onUserDisconnected }) => {
 
 const tokens = [
   [
-    "007eJxTYODc4suidN5ttcvUY/e6n5zccvy0r3SHr9zyd9oxkoGfrwgqMFikmCenmpsbJhsbm5tYmiUlJpukmhkmW1iYGaSlJhob7Shfn94QyMiw/awaAyMUgvh8DGmZRcUlYZkpqfnOiTk5DAwAudIj8g==",
-    "firstVideoCall",
-  ],
-  [
-    "007eJxTYJAqmflXNqT5Y3lE8+LCKv/61mq1mpSnTmLHpJ/HBnHdZ1NgsEgxT041NzdMNjY2N7E0S0pMNkk1M0y2sDAzSEtNNDa62b4+vSGQkWFClCUjIwMEgvj8DMWpyfl5KWGZKan5zok5OQwMAGwKIq4=",
-    "secondVideoCall",
-  ],
-  [
-    "007eJxTYLiyv/he3crUXSceKtmsP3KqkPFwy4Fqoa/z3z5jDXFSYS1QYLBIMU9ONTc3TDY2NjexNEtKTDZJNTNMtrAwM0hLTTQ2+ue7Ib0hkJHh7cxuJkYGCATx+RhKMooyU8IyU1LznRNzchgYAHGpJdY=",
-    "thridVideoCall",
+    "007eJxTYNgutzz++3v/3fZXeuXOr+7Kl0gNEGRgD/1tWeo+5+OWzYUKDBYp5smp5uaGycbG5iaWZkmJySapZobJFhZmBmmpicZG86I3pjcEMjJMnlzEzMgAgSA+P0NafmlRSUZYZkpqvnNiTg4DAwDWICQH",
+    "fourthVideoCall",
   ],
 ]
 

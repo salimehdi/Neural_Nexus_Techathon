@@ -1,4 +1,4 @@
-import { CookingPot, HandPlatter, ClipboardMinus, Dumbbell, History, Phone,UserIcon, Users,    } from "lucide-react";
+import { CookingPot, HandPlatter, ClipboardMinus, Dumbbell, History, Phone, UserIcon, Users  } from "lucide-react";
 
   
   export const Menus = [
