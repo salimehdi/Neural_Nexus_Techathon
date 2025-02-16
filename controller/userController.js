@@ -62,12 +62,17 @@ const checkUser = async (req, res, next) => {
     try {
         const { email } = req.body;
 
-        // Find user by email
         let user = await UserModel.findOne({ email });
 
-        // If user doesn't exist, create a new one with default values
         if (!user) {
-            user = await UserModel.create({
+            const randomTargets = ["Hard Gain", "Gain", "Maintain", "Loss", "Hard Loss"];
+            const randomMeals = [1, 2, 3, 4];
+            const randomAllergies = [null, "Peanuts", "Dairy", "Gluten", "Soy", "Shellfish"];
+            const randomSleepDuration = ["6 hours", "7 hours", "8 hours", "9 hours"];
+            const randomSleepSchedule = ["Consistent", "Irregular", "Moderate"];
+            const randomSleepQuality = ["Excellent", "Good", "Average", "Poor"];
+
+            user = new UserModel({
                 name: null,
                 email: email,
                 profilePic: null,
@@ -75,15 +80,22 @@ const checkUser = async (req, res, next) => {
                 gender: null,
                 height: null,
                 weight: null,
+                bmi: null,
                 activityLevel: null,
-                target: null,
-                mealsPerDay: null,
-                dietary_preferences: "Veg", // Default value
-                allergies: null,
-                sleeping: { time: null, schedule: null, feedback: null },
+                target: randomTargets[Math.floor(Math.random() * randomTargets.length)],
+                mealsPerDay: randomMeals[Math.floor(Math.random() * randomMeals.length)],
+                dietary_preferences: ["Veg", "Non-Veg", "Vegan"][Math.floor(Math.random() * 3)],
+                allergies: randomAllergies[Math.floor(Math.random() * randomAllergies.length)],
+                sleeping: { 
+                    time: randomSleepDuration[Math.floor(Math.random() * randomSleepDuration.length)],
+                    schedule: randomSleepSchedule[Math.floor(Math.random() * randomSleepSchedule.length)],
+                    feedback: randomSleepQuality[Math.floor(Math.random() * randomSleepQuality.length)]
+                },
                 food_intake: [],
                 exercise_done: []
             });
+
+            await user.save();
         }
 
         res.status(200).json(user);
@@ -91,7 +103,6 @@ const checkUser = async (req, res, next) => {
         next(error);
     }
 };
-
 
 
 const getUserByEmail = async (req, res, next) => {
